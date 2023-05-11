@@ -1,12 +1,12 @@
 .app {
   line-height: 1.2em;
-}
 
-.app__wrapper {
-  display: flex;
-  flex-direction: row;
-  margin: 0 auto;
-  margin-top: 160px;
-  max-width: 754px;
-  height: 100%;
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    margin-top: 160px;
+    max-width: 754px;
+    height: 100%;
+  }
 }
