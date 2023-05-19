@@ -21,6 +21,25 @@
         text-transform: uppercase;
         font-weight: 600;
 
+        &--active {
+            align-content: center;
+            background-color: #ffffff;
+            width: 33.33%;
+            height: 50px;
+            border: none;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            background-color: #2196f3;
+            color: white;
+
+            &:active {
+                background-color: #4a4a4a;
+                border: 2px solid #4a4a4a;
+            }
+        }
+
         &:hover {
             background-color: #f1fcff;
         }
