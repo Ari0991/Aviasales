@@ -109,37 +109,34 @@ export const sortTickets = (array, sort) => {
   }
 };
 
-export const checkActiveFilteres = (array, filter, allChecked) => {
-  if (allChecked || filter.length === 0) {
-    return array;
-  } else {
-    let result = [];
+export const checkActiveFilteres = (array, filter) => {
+  let result = [];
 
-    if (filter.includes('0-transfers')) {
-      array.map((elem) => {
-        if (elem.segments[0].stops.length === 0 && elem.segments[1].stops.length === 0) {
-          result.push(elem);
-        }
-      });
-    } else if (filter.includes('1-transfers')) {
-      array.map((elem) => {
-        if (elem.segments[0].stops.length === 1 && elem.segments[1].stops.length === 1) {
-          result.push(elem);
-        }
-      });
-    } else if (filter.includes('2-transfers')) {
-      array.map((elem) => {
-        if (elem.segments[0].stops.length === 2 && elem.segments[1].stops.length === 2) {
-          result.push(elem);
-        }
-      });
-    } else if (filter.includes('3-transfers')) {
-      array.map((elem) => {
-        if (elem.segments[0].stops.length === 3 && elem.segments[1].stops.length === 3) {
-          result.push(elem);
-        }
-      });
-    }
-    return result;
+  if (filter.includes('0-transfers')) {
+    array.map((elem) => {
+      if (elem.segments[0].stops.length === 0 || elem.segments[1].stops.length === 0) {
+        result.push(elem);
+      }
+    });
+  } else if (filter.includes('1-transfers')) {
+    array.map((elem) => {
+      if (elem.segments[0].stops.length === 1 || elem.segments[1].stops.length === 1) {
+        result.push(elem);
+      }
+    });
+  } else if (filter.includes('2-transfers')) {
+    array.map((elem) => {
+      if (elem.segments[0].stops.length === 2 || elem.segments[1].stops.length === 2) {
+        result.push(elem);
+      }
+    });
+  } else if (filter.includes('3-transfers')) {
+    array.map((elem) => {
+      if (elem.segments[0].stops.length === 3 || elem.segments[1].stops.length === 3) {
+        result.push(elem);
+      }
+    });
   }
+  return result;
 };
+// };

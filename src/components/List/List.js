@@ -7,9 +7,9 @@ import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.js';
 
 import classes from './List.module.scss';
 
-const List = ({ tickets, viewTickets, sort, filter, allChecked }) => {
+const List = ({ tickets, viewTickets, sort, filter }) => {
   let sortedList = sortTickets([...tickets], sort);
-  let filteredList = checkActiveFilteres(sortedList, filter, allChecked);
+  let filteredList = checkActiveFilteres(sortedList, filter);
   const slicedTickets = [...filteredList].slice(0, viewTickets);
 
   const items = slicedTickets.map((elem) => {
@@ -30,11 +30,7 @@ const List = ({ tickets, viewTickets, sort, filter, allChecked }) => {
 
   const hasTickets =
     slicedTickets.length === 0 ? (
-      <Alert
-        message="По вашему запросу не найдено билетов. "
-        description="Пожалуйста, выберите фильтр или поставьте галочку"
-        type="info"
-      />
+      <Alert message="По вашему запросу не найдено билетов. " description="Пожалуйста, поставьте галочку" type="info" />
     ) : (
       items
     );
@@ -48,7 +44,6 @@ const mapStateToProps = (state) => {
     viewTickets: state.viewTickets,
     sort: state.sort,
     filter: state.filter,
-    allChecked: state.allChecked,
   };
 };
 
