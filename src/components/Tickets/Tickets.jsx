@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
 
-import Tabs from '../Tabs/Tabs.js';
-import List from '../List/List.js';
-import Button from '../Button/Button.js';
+import Tabs from '../Tabs/Tabs.jsx';
+import List from '../List/List.jsx';
+import Button from '../Button/Button.jsx';
 
 import classes from './Tickets.module.scss';
 

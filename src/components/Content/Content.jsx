@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Filter from '../Filter/Filter.js';
-import Tickets from '../Tickets/Tickets.js';
+import Filter from '../Filter/Filter.jsx';
+import Tickets from '../Tickets/Tickets.jsx';
 
 import classes from './Content.module.scss';
 

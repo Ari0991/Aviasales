@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { store } from '../store/store.js';
+import { store } from '../store/store.jsx';
 
 export function checkItem(name) {
   return { type: 'FILTER_CHANGE', name: name };
@@ -50,8 +50,6 @@ export function getTicketsData(id) {
       ticketList.push(...tickets);
       if (!stop) {
         dispatch(getTicketsData(id));
-      } else {
-        dispatch(fetchTicketsIsDone());
       }
     } catch (error) {
       if (error.response.status === 500) {
@@ -84,8 +82,4 @@ export function getMoreTickets() {
 
 export function sortChange(name) {
   return { type: 'SORT_CHANGE', name: name };
-}
-
-export function fetchTicketsIsDone() {
-  return { type: 'STOP_FETCH' };
 }

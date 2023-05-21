@@ -1,5 +1,4 @@
-import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.js';
-// import { store } from '../../redux_components/store/store.js';
+import { sortTickets } from '../../utilities/utilities.jsx';
 
 const initialState = {
   loading: true,
@@ -55,9 +54,6 @@ export const reducer = (state = initialState, action) => {
 
     case 'SORT_CHANGE':
       return { ...state, sort: action.name };
-
-    // case 'STOP_FETCH':
-    //   return { ...state, stop: true };
 
     default:
       return state;

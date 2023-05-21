@@ -8,7 +8,7 @@ import {
   stopsCounter,
   stopsNameInfo,
   findImage,
-} from '../../utilities/utilities.js';
+} from '../../utilities/utilities.jsx';
 
 import classes from './Card.module.scss';
 

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Alert } from 'antd';
 
-import Card from '../Card/Card.js';
-import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.js';
+import Card from '../Card/Card.jsx';
+import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.jsx';
 
 import classes from './List.module.scss';
 

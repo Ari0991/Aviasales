@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { checkItem, isAllChecked } from '../../redux_components/actions/actions.js';
-import FilterItem from '../Filter-item/Filter-item.js';
+import { checkItem, isAllChecked } from '../../redux_components/actions/actions.jsx';
+import FilterItem from '../Filter-item/Filter-item.jsx';
 // import { store } from '../../redux_components/store/store.js';
 
 import classes from './Filter.module.scss';

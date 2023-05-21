@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { sortChange } from '../../redux_components/actions/actions.js';
+import { sortChange } from '../../redux_components/actions/actions.jsx';
 
 import classes from './Tabs.module.scss';
 

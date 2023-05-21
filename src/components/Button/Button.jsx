@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getMoreTickets } from '../../redux_components/actions/actions.js';
+import { getMoreTickets } from '../../redux_components/actions/actions.jsx';
 
 import classes from './Button.module.scss';
 
