@@ -26,15 +26,8 @@ export function getId() {
   };
 }
 
-export function rememberId(id) {
+function rememberId(id) {
   return { type: 'REMEMBER_ID', id: id };
-}
-
-export function LoadStop() {
-  return { type: 'LOAD_STOP' };
-}
-export function LoadPlay() {
-  return { type: 'LOAD_STOP' };
 }
 
 export function error() {
@@ -64,16 +57,12 @@ export function getTicketsData(id) {
   };
 }
 
-export function getTickets(tickets) {
+function getTickets(tickets) {
   return { type: 'GET_TICKETS', tickets: tickets };
 }
 
 export function getFilteredTickets(transfers) {
   return { type: 'GET_TICKETS_BY_TRANSFER', transfers: transfers };
-}
-
-export function clearFilter() {
-  return { type: 'FILTER_CLEAR' };
 }
 
 export function getMoreTickets() {
