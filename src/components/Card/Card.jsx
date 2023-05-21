@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   convertPrice,
@@ -48,6 +49,20 @@ const Card = ({ carrier, price, departure, arrival }) => {
       </div>
     </li>
   );
+};
+
+Card.defaultProps = {
+  carrier: 'BT',
+  price: 0,
+  departure: {},
+  arrival: {},
+};
+
+Card.propTypes = {
+  carrier: PropTypes.string,
+  price: PropTypes.number,
+  departure: PropTypes.object,
+  arrival: PropTypes.object,
 };
 
 export default Card;

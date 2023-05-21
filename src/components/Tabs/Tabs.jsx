@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { sortChange } from '../../redux_components/actions/actions.jsx';
@@ -41,6 +42,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     sortChange: (name) => dispatch(sortChange(name)),
   };
+};
+
+Tabs.defaultProps = {
+  sort: 'lowPrice',
+};
+
+Tabs.propTypes = {
+  sort: PropTypes.string,
+  sortChange: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tabs);

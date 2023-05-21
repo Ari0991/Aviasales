@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { checkItem, isAllChecked } from '../../redux_components/actions/actions.jsx';
@@ -65,6 +66,16 @@ const mapDispatchToProps = (dispatch) => {
     check: (name) => dispatch(checkItem(name)),
     checkAll: () => dispatch(isAllChecked()),
   };
+};
+
+Filter.defaultProps = {
+  sort: 'lowPrice',
+};
+
+Filter.propTypes = {
+  filter: PropTypes.arrayOf(PropTypes.string),
+  check: PropTypes.func.isRequired,
+  checkAll: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

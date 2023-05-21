@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getMoreTickets } from '../../redux_components/actions/actions.jsx';
@@ -21,6 +22,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getMoreTickets: () => dispatch(getMoreTickets()),
   };
+};
+
+Button.propTypes = {
+  getMoreTickets: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Button);

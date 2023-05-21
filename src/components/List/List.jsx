@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert } from 'antd';
 
@@ -45,6 +46,20 @@ const mapStateToProps = (state) => {
     sort: state.sort,
     filter: state.filter,
   };
+};
+
+List.defaultProps = {
+  tickets: [],
+  viewTickets: 5,
+  sort: 'lowPrice',
+  filter: [],
+};
+
+List.propTypes = {
+  tickets: PropTypes.arrayOf(PropTypes.object),
+  viewTickets: PropTypes.number,
+  sort: PropTypes.string,
+  filter: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default connect(mapStateToProps)(List);

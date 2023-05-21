@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
 
@@ -31,8 +32,19 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     sort: state.sort,
     filter: state.filter,
-    stop: state.stop,
   };
+};
+
+Tickets.defaultProps = {
+  loading: true,
+  sort: 'lowPrice',
+  filter: [],
+};
+
+Tickets.propTypes = {
+  loading: PropTypes.bool,
+  sort: PropTypes.string,
+  filter: PropTypes.array,
 };
 
 export default connect(mapStateToProps)(Tickets);
