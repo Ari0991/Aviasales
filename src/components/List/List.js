@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
+import { Alert } from 'antd';
 
 import Card from '../Card/Card.js';
+import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.js';
 
 import classes from './List.module.scss';
 
-const List = ({ tickets, viewTickets, filter, sort }) => {
-  useEffect(() => {
-    console.log(filter, sort);
-  }, [filter, sort]);
-  const slicedTickets = [...tickets].slice(0, viewTickets);
+const List = ({ tickets, viewTickets, sort, filter, allChecked }) => {
+  let sortedList = sortTickets([...tickets], sort);
+  let filteredList = checkActiveFilteres(sortedList, filter, allChecked);
+  const slicedTickets = [...filteredList].slice(0, viewTickets);
 
   const items = slicedTickets.map((elem) => {
     const { carrier, price, segments } = elem;
@@ -27,7 +28,18 @@ const List = ({ tickets, viewTickets, filter, sort }) => {
     );
   });
 
-  return <ul className={classes['tickets__list']}>{items}</ul>;
+  const hasTickets =
+    slicedTickets.length === 0 ? (
+      <Alert
+        message="По вашему запросу не найдено билетов. "
+        description="Пожалуйста, выберите фильтр или поставьте галочку"
+        type="info"
+      />
+    ) : (
+      items
+    );
+
+  return <ul className={classes['tickets__list']}>{hasTickets}</ul>;
 };
 
 const mapStateToProps = (state) => {
@@ -36,6 +48,7 @@ const mapStateToProps = (state) => {
     viewTickets: state.viewTickets,
     sort: state.sort,
     filter: state.filter,
+    allChecked: state.allChecked,
   };
 };
 

@@ -1,23 +1,21 @@
 import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.js';
+// import { store } from '../../redux_components/store/store.js';
 
 const initialState = {
   loading: true,
-  noTickets: false,
   sort: 'lowPrice',
   filter: [],
   allChecked: false,
   error: false,
   ID: null,
-
   tickets: [],
   viewTickets: 5,
+  stop: false,
 };
 
 export const reducer = (state = initialState, action) => {
   const { filter, allChecked, viewTickets, sort } = state;
   switch (action.type) {
-    case 'FILTER_CLEAR':
-      return { ...state, noTickets: true, loading: false };
     case 'FILTER_CHANGE':
       const name = action.name;
       let newFilter = structuredClone(filter);
@@ -36,8 +34,7 @@ export const reducer = (state = initialState, action) => {
       }
     case 'LOAD_STOP':
       return { ...state, loading: false };
-    case 'LOAD_PLAY':
-      return { ...state, loading: true };
+
     case 'ERROR':
       return { ...state, error: true };
     case 'REMEMBER_ID':
@@ -45,10 +42,7 @@ export const reducer = (state = initialState, action) => {
       return { ...state, ID: id };
     case 'GET_TICKETS':
       const { tickets } = action;
-      const newTickets = [...tickets];
-      const filterCheck = checkActiveFilteres(newTickets, filter, allChecked);
-      const result = sortTickets(filterCheck, sort);
-      console.log(result);
+      const result = sortTickets([...tickets], sort);
       return {
         ...state,
         tickets: result,
@@ -61,6 +55,9 @@ export const reducer = (state = initialState, action) => {
 
     case 'SORT_CHANGE':
       return { ...state, sort: action.name };
+
+    // case 'STOP_FETCH':
+    //   return { ...state, stop: true };
 
     default:
       return state;

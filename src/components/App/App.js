@@ -8,7 +8,9 @@ import { getId, getTicketsData } from '../../redux_components/actions/actions.js
 
 const App = ({ error, ID }) => {
   useEffect(() => {
-    store.dispatch(getId());
+    if (!ID) {
+      store.dispatch(getId());
+    }
   }, []);
 
   useEffect(() => {

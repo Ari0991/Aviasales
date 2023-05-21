@@ -1,7 +1,6 @@
-import { store } from '../store/store.js';
-import AviaService from '../../services/avia-service.js';
+import axios from 'axios';
 
-const aviaService = new AviaService();
+import { store } from '../store/store.js';
 
 export function checkItem(name) {
   return { type: 'FILTER_CHANGE', name: name };
@@ -15,13 +14,15 @@ export function sort() {
 }
 
 export function getId() {
-  return (dispatch) => {
-    aviaService
-      .getSearchId()
-      .then((res) => {
-        dispatch(rememberId(res.searchId));
-      })
-      .catch(() => store.dispatch(error));
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('https://aviasales-test-api.kata.academy/search');
+      const id = response.data.searchId;
+
+      dispatch(rememberId(id));
+    } catch (err) {
+      store.dispatch(error());
+    }
   };
 }
 
@@ -40,19 +41,33 @@ export function error() {
   return { type: 'ERROR' };
 }
 
+let ticketList = [];
 export function getTicketsData(id) {
-  return (dispatch) => {
-    aviaService
-      .getTickets(id)
-      .then((res) => {
-        dispatch(getTickets(res));
-      })
-      .catch(() => store.dispatch(error));
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`https://aviasales-test-api.kata.academy/tickets?searchId=${id}`);
+      const { tickets, stop } = await response.data;
+      ticketList.push(...tickets);
+      if (!stop) {
+        dispatch(getTicketsData(id));
+      } else {
+        dispatch(fetchTicketsIsDone());
+      }
+    } catch (error) {
+      if (error.response.status === 500) {
+        dispatch(getTicketsData(id));
+      } else {
+        dispatch(error());
+      }
+    }
+    if (stop) {
+      dispatch(getTickets(ticketList));
+    }
   };
 }
 
 export function getTickets(tickets) {
-  return { type: 'GET_TICKETS', tickets: tickets.tickets };
+  return { type: 'GET_TICKETS', tickets: tickets };
 }
 
 export function getFilteredTickets(transfers) {
@@ -69,4 +84,8 @@ export function getMoreTickets() {
 
 export function sortChange(name) {
   return { type: 'SORT_CHANGE', name: name };
+}
+
+export function fetchTicketsIsDone() {
+  return { type: 'STOP_FETCH' };
 }

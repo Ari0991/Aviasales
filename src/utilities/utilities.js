@@ -90,16 +90,23 @@ export const findImage = (carrier) => {
   return `https://pics.avs.io/99/36/${carrier}.png`;
 };
 
-export const sortTickets = (array, filter, sort) => {
+export const sortTickets = (array, sort) => {
   switch (sort) {
     case 'lowPrice':
       return array.sort((a, b) => a.price - b.price);
     case 'minDuration':
-      return array.sort(
-        (a, b) => a.segments[0].duration + a.segments[1].duration - (b.segments[0].duration + b.segments[1].duration)
-      );
+      return array.sort((a, b) => {
+        return a.segments[0].duration + a.segments[1].duration - (b.segments[0].duration + b.segments[1].duration);
+      });
+    case 'optimal':
+      return array.sort((a, b) => {
+        return (
+          a.segments[0].stops.length +
+            a.segments[1].stops.length -
+            (b.segments[0].stops.length + b.segments[1].stops.length) || a.price - b.price
+        );
+      });
   }
-  return array;
 };
 
 export const checkActiveFilteres = (array, filter, allChecked) => {
@@ -110,19 +117,27 @@ export const checkActiveFilteres = (array, filter, allChecked) => {
 
     if (filter.includes('0-transfers')) {
       array.map((elem) => {
-        result.push(elem.segments[0].stops.length === 0 && elem.segments[1].stops.length === 0);
+        if (elem.segments[0].stops.length === 0 && elem.segments[1].stops.length === 0) {
+          result.push(elem);
+        }
       });
     } else if (filter.includes('1-transfers')) {
       array.map((elem) => {
-        result.push(elem.segments[0].stops.length === 1 || elem.segments[1].stops.length === 1);
+        if (elem.segments[0].stops.length === 1 && elem.segments[1].stops.length === 1) {
+          result.push(elem);
+        }
       });
     } else if (filter.includes('2-transfers')) {
       array.map((elem) => {
-        result.push(elem.segments[0].stops.length === 2 || elem.segments[1].stops.length === 2);
+        if (elem.segments[0].stops.length === 2 && elem.segments[1].stops.length === 2) {
+          result.push(elem);
+        }
       });
     } else if (filter.includes('3-transfers')) {
       array.map((elem) => {
-        result.push(elem.segments[0].stops.length === 3 || elem.segments[1].stops.length === 2);
+        if (elem.segments[0].stops.length === 3 && elem.segments[1].stops.length === 3) {
+          result.push(elem);
+        }
       });
     }
     return result;
