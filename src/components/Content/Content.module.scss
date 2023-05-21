@@ -23,8 +23,25 @@
 
 @media (max-width: 700px) {
   .app {
+    position: relative;
+
     &__wrapper {
       flex-direction: column;
+      margin-top: 20px;
+    }
+
+    &__logo {
+      position: absolute;
+      left: 300px;
+      top: 20px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .app {
+    &__logo {
+      left: 270px;
     }
   }
 }

@@ -7,3 +7,10 @@
     flex-direction: column;
     padding-left: 20px;
 }
+
+@media (max-width: 600px) {
+    .tickets {
+        min-width: 300px;
+        max-width: 502px;
+    }
+}
