@@ -43,16 +43,16 @@ export function getTicketsData(id) {
       ticketList.push(...tickets);
       if (!stop) {
         dispatch(getTicketsData(id));
+      } else {
+        dispatch(setStopLoading());
       }
+      dispatch(getTickets(ticketList));
     } catch (error) {
       if (error.response.status === 500) {
         dispatch(getTicketsData(id));
       } else {
         dispatch(error());
       }
-    }
-    if (stop) {
-      dispatch(getTickets(ticketList));
     }
   };
 }
@@ -71,4 +71,8 @@ export function getMoreTickets() {
 
 export function sortChange(name) {
   return { type: 'SORT_CHANGE', name: name };
+}
+
+export function setStopLoading() {
+  return { type: 'SET_STOP' };
 }

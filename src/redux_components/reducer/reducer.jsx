@@ -54,6 +54,8 @@ export const reducer = (state = initialState, action) => {
 
     case 'SORT_CHANGE':
       return { ...state, sort: action.name };
+    case 'SET_STOP':
+      return { ...state, stop: true };
 
     default:
       return state;

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Alert } from 'antd';
+import { Alert, Spin } from 'antd';
 
 import Card from '../Card/Card.jsx';
 import { sortTickets, checkActiveFilteres } from '../../utilities/utilities.jsx';
 
 import classes from './List.module.scss';
 
-const List = ({ tickets, viewTickets, sort, filter }) => {
+const List = ({ tickets, viewTickets, sort, filter, stop }) => {
   let sortedList = sortTickets([...tickets], sort);
   let filteredList = checkActiveFilteres(sortedList, filter);
   const slicedTickets = [...filteredList].slice(0, viewTickets);
@@ -29,6 +29,12 @@ const List = ({ tickets, viewTickets, sort, filter }) => {
     );
   });
 
+  const isStopLoading = stop ? null : (
+    <Spin>
+      <div className={classes['tickets__alert']}>База еще загружается, но вы можете пользоваться фильтрами</div>
+    </Spin>
+  );
+
   const hasTickets =
     slicedTickets.length === 0 ? (
       <Alert message="По вашему запросу не найдено билетов. " description="Пожалуйста, поставьте галочку" type="info" />
@@ -36,7 +42,12 @@ const List = ({ tickets, viewTickets, sort, filter }) => {
       items
     );
 
-  return <ul className={classes['tickets__list']}>{hasTickets}</ul>;
+  return (
+    <ul className={classes['tickets__list']}>
+      {isStopLoading}
+      {hasTickets}
+    </ul>
+  );
 };
 
 const mapStateToProps = (state) => {
@@ -45,6 +56,7 @@ const mapStateToProps = (state) => {
     viewTickets: state.viewTickets,
     sort: state.sort,
     filter: state.filter,
+    stop: state.stop,
   };
 };
 
@@ -53,6 +65,7 @@ List.defaultProps = {
   viewTickets: 5,
   sort: 'lowPrice',
   filter: [],
+  stop: false,
 };
 
 List.propTypes = {
@@ -60,6 +73,7 @@ List.propTypes = {
   viewTickets: PropTypes.number,
   sort: PropTypes.string,
   filter: PropTypes.arrayOf(PropTypes.string),
+  stop: PropTypes.bool,
 };
 
 export default connect(mapStateToProps)(List);
