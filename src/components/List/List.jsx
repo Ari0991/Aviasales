@@ -10,7 +10,7 @@ import classes from './List.module.scss';
 
 const List = ({ tickets, viewTickets, sort, filter, stop }) => {
   let sortedList = sortTickets([...tickets], sort);
-  let filteredList = checkActiveFilteres(sortedList, filter);
+  let filteredList = useMemo(() => checkActiveFilteres(sortedList, filter), [sortedList]);
 
   const visibleTickets = useMemo(() => getVisibleTickets(filteredList, viewTickets), [filteredList]);
 
