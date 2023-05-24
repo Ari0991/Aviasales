@@ -58,7 +58,10 @@ const Filter = ({ filter, check, checkAll }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { filter: state.filter, isAllItemsChecked: state.allChecked };
+  return {
+    filter: state.ticketSort.filter,
+    isAllItemsChecked: state.ticketSort.allChecked,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

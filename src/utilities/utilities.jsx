@@ -139,4 +139,8 @@ export const checkActiveFilteres = (array, filter) => {
   }
   return result;
 };
-// };
+
+export const getVisibleTickets = (array, num) => {
+  const visibleTickets = [...array].slice(0, num);
+  return visibleTickets;
+};

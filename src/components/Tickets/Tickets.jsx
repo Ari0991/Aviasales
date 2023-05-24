@@ -29,9 +29,9 @@ const Tickets = ({ loading }) => {
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.loading,
-    sort: state.sort,
-    filter: state.filter,
+    loading: state.ticketList.loading,
+    sort: state.ticketSort.sort,
+    filter: state.ticketSort.filter,
   };
 };
 

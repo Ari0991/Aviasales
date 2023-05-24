@@ -16,7 +16,8 @@ export function sort() {
 export function getId() {
   return async (dispatch) => {
     try {
-      const response = await axios.get('https://aviasales-test-api.kata.academy/search');
+      const url = 'https://aviasales-test-api.kata.academy/';
+      const response = await axios.get(`${url}search`);
       const id = response.data.searchId;
 
       dispatch(rememberId(id));
@@ -38,17 +39,19 @@ let ticketList = [];
 export function getTicketsData(id) {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`https://aviasales-test-api.kata.academy/tickets?searchId=${id}`);
+      const url = 'https://aviasales-test-api.kata.academy/';
+      const response = await axios.get(`${url}tickets?searchId=${id}`);
       const { tickets, stop } = await response.data;
       ticketList.push(...tickets);
+
       if (!stop) {
         dispatch(getTicketsData(id));
       } else {
         dispatch(setStopLoading());
       }
       dispatch(getTickets(ticketList));
-    } catch (error) {
-      if (error.response.status === 500) {
+    } catch (err) {
+      if (err.code === 'ERR_BAD_RESPONSE') {
         dispatch(getTicketsData(id));
       } else {
         dispatch(error());

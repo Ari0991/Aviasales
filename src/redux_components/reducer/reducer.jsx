@@ -1,19 +1,80 @@
 import { sortTickets } from '../../utilities/utilities.jsx';
 
 const initialState = {
-  loading: true,
-  sort: 'lowPrice',
-  filter: [],
-  allChecked: false,
-  error: false,
-  ID: null,
-  tickets: [],
-  viewTickets: 5,
-  stop: false,
+  ticketList: {
+    error: false,
+    loading: true,
+    ID: null,
+    stop: false,
+    tickets: [],
+    viewTickets: 5,
+  },
+  ticketSort: {
+    sort: 'lowPrice',
+    filter: [],
+    allChecked: false,
+  },
 };
 
 export const reducer = (state = initialState, action) => {
-  const { filter, allChecked, viewTickets, sort } = state;
+  switch (action.type) {
+    case 'LOAD_STOP':
+    case 'ERROR':
+    case 'REMEMBER_ID':
+    case 'GET_TICKETS':
+    case 'GET_MORE_TICKETS':
+    case 'SET_STOP':
+      return {
+        ...state,
+        ticketList: updateTicketList(state, action),
+      };
+
+    case 'FILTER_CHANGE':
+    case 'FILTER_ALL_CHECKED':
+    case 'SORT_CHANGE':
+      return {
+        ...state,
+        ticketSort: updateTicketSort(state, action),
+      };
+
+    default:
+      return state;
+  }
+};
+
+const updateTicketList = (state, action) => {
+  const { ticketList } = state;
+  const { viewTickets } = ticketList;
+  const { sort } = state.ticketSort;
+  switch (action.type) {
+    case 'LOAD_STOP':
+      return { ...ticketList, loading: false };
+    case 'ERROR':
+      return { ...ticketList, error: true };
+    case 'REMEMBER_ID':
+      const { id } = action;
+      return { ...ticketList, ID: id };
+    case 'GET_TICKETS':
+      const { tickets } = action;
+      const result = sortTickets([...tickets], sort);
+      return {
+        ...ticketList,
+        tickets: result,
+        loading: false,
+      };
+    case 'GET_MORE_TICKETS':
+      const newViewTickets = structuredClone(viewTickets) + 5;
+      return { ...ticketList, viewTickets: newViewTickets };
+    case 'SET_STOP':
+      return { ...ticketList, stop: true };
+    default:
+      return ticketList;
+  }
+};
+
+const updateTicketSort = (state, action) => {
+  const { ticketSort } = state;
+  const { filter, allChecked } = ticketSort;
   switch (action.type) {
     case 'FILTER_CHANGE':
       const name = action.name;
@@ -24,40 +85,21 @@ export const reducer = (state = initialState, action) => {
       } else {
         newFilter.push(name);
       }
-      return { ...state, filter: newFilter };
+      return { ...ticketSort, filter: newFilter };
     case 'FILTER_ALL_CHECKED':
       if (!allChecked && filter.length <= 3) {
-        return { ...state, filter: ['0-transfers', '1-transfers', '2-transfers', '3-transfers'], allChecked: true };
+        return {
+          ...ticketSort,
+          filter: ['0-transfers', '1-transfers', '2-transfers', '3-transfers'],
+          allChecked: true,
+        };
       } else {
-        return { ...state, filter: [], allChecked: false };
+        return { ...ticketSort, filter: [], allChecked: false };
       }
-    case 'LOAD_STOP':
-      return { ...state, loading: false };
-
-    case 'ERROR':
-      return { ...state, error: true };
-    case 'REMEMBER_ID':
-      const { id } = action;
-      return { ...state, ID: id };
-    case 'GET_TICKETS':
-      const { tickets } = action;
-      const result = sortTickets([...tickets], sort);
-      return {
-        ...state,
-        tickets: result,
-        loading: false,
-      };
-
-    case 'GET_MORE_TICKETS':
-      const newViewTickets = structuredClone(viewTickets) + 5;
-      return { ...state, viewTickets: newViewTickets };
-
     case 'SORT_CHANGE':
-      return { ...state, sort: action.name };
-    case 'SET_STOP':
-      return { ...state, stop: true };
+      return { ...ticketSort, sort: action.name };
 
     default:
-      return state;
+      return ticketSort;
   }
 };

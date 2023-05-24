@@ -15,7 +15,10 @@ const Button = ({ getMoreTickets }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { tickets: state.tickets, viewTickets: state.viewTickets };
+  return {
+    tickets: state.ticketList.tickets,
+    viewTickets: state.ticketList.viewTickets,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

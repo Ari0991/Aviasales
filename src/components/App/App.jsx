@@ -35,9 +35,9 @@ const App = ({ error, ID }) => {
 
 const mapStateToProps = (state) => {
   return {
-    ID: state.ID,
-    error: state.error,
-    loading: state.loading,
+    ID: state.ticketList.ID,
+    error: state.ticketList.error,
+    loading: state.ticketList.loading,
   };
 };
 
