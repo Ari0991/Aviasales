@@ -12,7 +12,7 @@ const List = ({ tickets, viewTickets, sort, filter, stop }) => {
   let sortedList = sortTickets([...tickets], sort);
   let filteredList = checkActiveFilteres(sortedList, filter);
 
-  const visibleTickets = useMemo(() => getVisibleTickets(filteredList, viewTickets));
+  const visibleTickets = useMemo(() => getVisibleTickets(filteredList, viewTickets), [filteredList]);
 
   const items = visibleTickets.map((elem) => {
     const { carrier, price, segments } = elem;
