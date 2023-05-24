@@ -10,9 +10,8 @@ import classes from './List.module.scss';
 
 const List = ({ tickets, viewTickets, sort, filter, stop }) => {
   let sortedList = sortTickets([...tickets], sort);
-  let filteredList = useMemo(() => checkActiveFilteres(sortedList, filter), [sortedList]);
-
-  const visibleTickets = useMemo(() => getVisibleTickets(filteredList, viewTickets), [filteredList]);
+  let filteredList = useMemo(() => checkActiveFilteres(sortedList, filter), [sortedList, filter]);
+  const visibleTickets = useMemo(() => getVisibleTickets(filteredList, viewTickets), [filteredList, viewTickets]);
 
   const items = visibleTickets.map((elem) => {
     const { carrier, price, segments } = elem;
