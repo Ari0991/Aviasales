@@ -33,8 +33,9 @@ const Tabs = ({ sort, sortChange }) => {
 };
 
 const mapStateToProps = (state) => {
+  const { sortReducer } = state;
   return {
-    sort: state.ticketSort.sort,
+    sort: sortReducer.sort,
   };
 };
 

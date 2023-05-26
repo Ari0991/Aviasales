@@ -34,10 +34,11 @@ const App = ({ error, ID }) => {
 };
 
 const mapStateToProps = (state) => {
+  const { listReducer } = state;
   return {
-    ID: state.ticketList.ID,
-    error: state.ticketList.error,
-    loading: state.ticketList.loading,
+    ID: listReducer.ID,
+    error: listReducer.error,
+    loading: listReducer.loading,
   };
 };
 

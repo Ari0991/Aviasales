@@ -13,11 +13,12 @@ export function sort() {
   return { type: 'SORT' };
 }
 
+const baseUrl = 'https://aviasales-test-api.kata.academy/';
+
 export function getId() {
   return async (dispatch) => {
     try {
-      const url = 'https://aviasales-test-api.kata.academy/';
-      const response = await axios.get(`${url}search`);
+      const response = await axios.get(`${baseUrl}search`);
       const id = response.data.searchId;
 
       dispatch(rememberId(id));
@@ -39,8 +40,7 @@ let ticketList = [];
 export function getTicketsData(id) {
   return async (dispatch) => {
     try {
-      const url = 'https://aviasales-test-api.kata.academy/';
-      const response = await axios.get(`${url}tickets?searchId=${id}`);
+      const response = await axios.get(`${baseUrl}tickets?searchId=${id}`);
       const { tickets, stop } = await response.data;
       ticketList.push(...tickets);
 

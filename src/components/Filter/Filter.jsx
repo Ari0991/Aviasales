@@ -58,9 +58,10 @@ const Filter = ({ filter, check, checkAll }) => {
 };
 
 const mapStateToProps = (state) => {
+  const { sortReducer } = state;
   return {
-    filter: state.ticketSort.filter,
-    isAllItemsChecked: state.ticketSort.allChecked,
+    filter: sortReducer.filter,
+    isAllItemsChecked: sortReducer.allChecked,
   };
 };
 

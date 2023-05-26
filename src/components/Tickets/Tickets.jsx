@@ -28,10 +28,11 @@ const Tickets = ({ loading }) => {
 };
 
 const mapStateToProps = (state) => {
+  const { listReducer, sortReducer } = state;
   return {
-    loading: state.ticketList.loading,
-    sort: state.ticketSort.sort,
-    filter: state.ticketSort.filter,
+    loading: listReducer.loading,
+    sort: sortReducer.sort,
+    filter: sortReducer.filter,
   };
 };
 

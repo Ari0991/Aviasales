@@ -51,12 +51,14 @@ const List = ({ tickets, viewTickets, sort, filter, stop }) => {
 };
 
 const mapStateToProps = (state) => {
+  const { listReducer, sortReducer } = state;
+
   return {
-    tickets: state.ticketList.tickets,
-    viewTickets: state.ticketList.viewTickets,
-    stop: state.ticketList.stop,
-    sort: state.ticketSort.sort,
-    filter: state.ticketSort.filter,
+    tickets: listReducer.tickets,
+    viewTickets: listReducer.viewTickets,
+    stop: listReducer.stop,
+    sort: sortReducer.sort,
+    filter: sortReducer.filter,
   };
 };
 
